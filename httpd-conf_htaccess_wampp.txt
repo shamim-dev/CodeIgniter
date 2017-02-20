@@ -1,0 +1,32 @@
+enable rewrite mode in apache:
+................................................
+
+Just remove the # from the start of the below line in the httpd.conf file to enable mod_rewrite.
+
+LoadModule rewrite_module modules/mod_rewrite.so
+
+Restart the apache after that.
+
+change htaccess:
+..........................
+
+Options +FollowSymLinks
+Options -Indexes
+DirectoryIndex index.php
+RewriteEngine on
+RewriteCond $1 !^(index\.php|images|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+
+
+finally:
+........................
+
+
+
+    Find $config['index_page'] = 'index.php';
+
+And then make index.php blank
+
+    Replace With $config['index_page'] = '';
